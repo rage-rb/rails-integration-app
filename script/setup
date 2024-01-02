@@ -1,0 +1,12 @@
+#!/bin/bash
+
+docker-compose down --remove-orphans --volumes
+docker volume create --name=slot-booking-gems
+docker volume create --name=slot-booking-postgres
+
+docker-compose build
+
+docker-compose run --rm api bundle install
+docker-compose run --rm api rails db:reset
+
+docker-compose run --rm web npm install
