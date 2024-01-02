@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:14.10
+    restart: always
+    volumes:
+      - slot-booking-postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+  api:
+    build: .
+    volumes:
+      - ${PWD}:/app:cached
+      - slot-booking-gems:/usr/local/bundle:cached
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:password@db/slot_booking_development
+  web:
+    build: ./frontend
+    volumes:
+      - ${PWD}/frontend:/app:cached
+    ports:
+      - 5173:5173
+volumes:
+  slot-booking-gems:
+    external: true
+  slot-booking-postgres:
+    external: true

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rm tmp/pids/server.pid &> /dev/null || /usr/bin/true
+docker-compose up
