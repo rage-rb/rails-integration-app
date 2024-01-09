@@ -35,16 +35,6 @@ module SlotBooking
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins "localhost:5173", "https://clumsy-squirrel-4315.pages.dev"
-
-        resource "*",
-          headers: :any,
-          methods: [:get, :post, :put, :patch, :delete, :options, :head]
-      end
-    end
   end
 end
 
@@ -53,6 +43,10 @@ require "rage/rails"
 Rails.configuration.after_initialize do
   Rage.configure do
     config.server.workers_count = 1
+
+    config.middleware.use Rage::Cors do
+      allow "localhost:5173", "https://clumsy-squirrel-4315.pages.dev"
+    end
 
     config.middleware.use ActionDispatch::HostAuthorization
     if Rails.env.development?
