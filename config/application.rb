@@ -49,3 +49,15 @@ module SlotBooking
 end
 
 require "rage/rails"
+
+Rails.configuration.after_initialize do
+  Rage.configure do
+    config.server.workers_count = 1
+
+    config.middleware.use ActionDispatch::HostAuthorization
+    if Rails.env.development?
+      config.middleware.use ActionDispatch::Reloader
+      config.middleware.use ActiveRecord::Migration::CheckPending
+    end
+  end
+end
