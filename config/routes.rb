@@ -1,3 +1,3 @@
-Rails.application.routes.draw do
+Rage.routes.draw do
   resources :bookings, only: %i(index create)
 end
