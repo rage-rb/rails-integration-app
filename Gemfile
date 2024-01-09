@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem "rails", "~> 7.0.6"
 
 gem "rage-rb"
+gem "http"
 
 # Use pg as the database for Active Record
 gem "pg"
