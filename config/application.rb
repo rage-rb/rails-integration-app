@@ -47,3 +47,5 @@ module SlotBooking
     end
   end
 end
+
+require "rage/rails"
